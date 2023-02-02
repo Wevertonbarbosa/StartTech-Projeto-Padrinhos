@@ -165,7 +165,7 @@ public class Screen extends JFrame implements ActionListener {
         //Mensagem de cadastrado e Limpar inputs
         if (validacaoNome.erroNome && validacaoEmail.erroEmail && validacaoCpf.erroCpf && validacaoTel.erroTel) {
 
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!"
+            JOptionPane.showMessageDialog(null, txtName.getText() +"\nCadastrado com sucesso!"
                     , "Cadastro", JOptionPane.INFORMATION_MESSAGE);
             limparInputs();
         }
