@@ -1,16 +1,17 @@
 package tela;
 
 import javax.swing.*;
+import java.text.ParseException;
 
 public class ValidacaoTel {
 
-
+    boolean erroTel;
     public void validadoTel(String telefone) {
+
         if (telefone.equals("+   (  )      -    ")) {
-            JOptionPane.showMessageDialog(null, "Por favor, " +
-                    "preencher o telefone corretamente", "Erro no campo Telefone", JOptionPane.ERROR_MESSAGE);
-        } else {
-         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+            erroTel = false;
+        }else {
+            erroTel = true;
         }
     }
 }

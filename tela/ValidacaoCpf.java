@@ -1,18 +1,18 @@
 package tela;
 
 import javax.swing.*;
+import java.text.ParseException;
 
 public class ValidacaoCpf {
 
-    public boolean isValidCpf = false;
+    boolean erroCpf;
+
     public void validadoCpf(String cpf) {
 
         if (cpf.equals("   .   .   -  ")) {
-            JOptionPane.showMessageDialog(null, "Por favor, " +
-                    "preencher CPF corretamente.", "Erro no campo CPF", JOptionPane.ERROR_MESSAGE);
-        }else{
-            isValidCpf = true;
+            erroCpf = false;
+        } else {
+            erroCpf = true;
         }
-
     }
 }

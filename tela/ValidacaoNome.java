@@ -1,11 +1,13 @@
 package tela;
 
 import javax.swing.*;
+import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidacaoNome {
 
+    boolean erroNome;
 
     public static boolean validarnome(String nome){
         String regex = "^(?:[\\p{Lu}&&[\\p{IsLatin}]])" +
@@ -26,11 +28,9 @@ public class ValidacaoNome {
 
     public void validadoNome(String nome){
         if (!validarnome(nome)){
-            JOptionPane.showMessageDialog(null, "Por favor, " +
-                    "preencher nome completo corretamente.", "Erro no NOME", JOptionPane.ERROR_MESSAGE);
+            erroNome = false;
         }else {
-            boolean isValidNome = false;
-            isValidNome = true;
+            erroNome = true;
         }
 
     }

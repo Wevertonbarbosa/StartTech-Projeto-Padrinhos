@@ -12,18 +12,15 @@ import java.text.ParseException;
 
 public class Screen extends JFrame implements ActionListener {
 
-    private JPanel pnlMain;
-    private JPanel pnlFooter;
-    private JLabel lblName;
-    private JLabel lblEmail;
-    private JLabel lblTel;
-    private JLabel lblCPF;
-    private JTextField txtName;
-    private JTextField txtEmail;
-    private JTextField txtTel;
-    private JTextField txtCPF;
+    private JPanel pnlMain, pnlFooter;
+    private JLabel lblName, lblEmail;
+    private JLabel lblTel, lblCPF;
+    public JLabel lblErroNome, lblErroEmail;
+    public JLabel lblErroCpf, lblErroTel;
+    private JTextField txtName, txtEmail;
+    private JTextField txtTel, txtCPF;
     private JButton btnCadastro;
-    private Integer TAMANHO_TXT = 23;
+    private Integer TAMANHO_TXT = 20;
 
 
     public Screen() throws ParseException {
@@ -45,7 +42,7 @@ public class Screen extends JFrame implements ActionListener {
 
     public JPanel getPnlMain() throws ParseException {
         if (pnlMain == null) {
-            pnlMain = new JPanel(new GridLayout(4, 2));
+            pnlMain = new JPanel(new GridLayout(4, 3));
 
             lblName = new JLabel("Nome: ");
             lblName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,17 +62,45 @@ public class Screen extends JFrame implements ActionListener {
             lblTel.setHorizontalAlignment(SwingConstants.CENTER);
             txtTel = new JFormattedTextField(new MaskFormatter("+## (##) #####-####"));
 
+            lblErroNome = new JLabel("Erro Nome");
+            lblErroNome.setHorizontalAlignment(SwingConstants.LEFT);
+            lblErroNome.setForeground(new Color(0xF50303));
+            lblErroNome.setVisible(false);
+
+            lblErroEmail = new JLabel("Erro Email");
+            lblErroEmail.setHorizontalAlignment(SwingConstants.LEFT);
+            lblErroEmail.setForeground(new Color(0xF50303));
+            lblErroEmail.setVisible(false);
+
+
+            lblErroCpf = new JLabel("Erro CPF");
+            lblErroCpf.setHorizontalAlignment(SwingConstants.LEFT);
+            lblErroCpf.setForeground(new Color(0xF50303));
+            lblErroCpf.setVisible(false);
+
+
+            lblErroTel = new JLabel("Erro Telefone");
+            lblErroTel.setHorizontalAlignment(SwingConstants.LEFT);
+            lblErroTel.setForeground(new Color(0xF50303));
+            lblErroTel.setVisible(false);
+
+
             pnlMain.add(lblName);
             pnlMain.add(txtName);
+            pnlMain.add(lblErroNome);
 
             pnlMain.add(lblEmail);
             pnlMain.add(txtEmail);
+            pnlMain.add(lblErroEmail);
 
             pnlMain.add(lblCPF);
             pnlMain.add(txtCPF);
+            pnlMain.add(lblErroCpf);
 
             pnlMain.add(lblTel);
             pnlMain.add(txtTel);
+            pnlMain.add(lblErroTel);
+
         }
         return pnlMain;
     }
@@ -102,7 +127,6 @@ public class Screen extends JFrame implements ActionListener {
         ValidacaoCpf validacaoCpf = new ValidacaoCpf();
         ValidacaoTel validacaoTel = new ValidacaoTel();
 
-
         //Validação Nome
         validacaoNome.validadoNome(txtName.getText());
         //Validação email
@@ -112,7 +136,45 @@ public class Screen extends JFrame implements ActionListener {
         //Validação Telefone
         validacaoTel.validadoTel(txtTel.getText());
 
+
+        //Mostrar msg Error
+        if (validacaoNome.erroNome == false) {
+            lblErroNome.setVisible(true);
+        } else {
+            lblErroNome.setVisible(false);
+        }
+
+        if (validacaoEmail.erroEmail == false) {
+            lblErroEmail.setVisible(true);
+        } else {
+            lblErroEmail.setVisible(false);
+        }
+
+        if (validacaoCpf.erroCpf == false) {
+            lblErroCpf.setVisible(true);
+        } else {
+            lblErroCpf.setVisible(false);
+        }
+
+        if (validacaoTel.erroTel == false) {
+            lblErroTel.setVisible(true);
+        } else {
+            lblErroTel.setVisible(false);
+        }
+
+        //Mensagem de cadastrado e Limpar inputs
+        if (validacaoNome.erroNome && validacaoEmail.erroEmail && validacaoCpf.erroCpf && validacaoTel.erroTel) {
+
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!"
+                    , "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+            limparInputs();
+        }
     }
 
-
+    public void limparInputs(){
+        txtName.setText("");
+        txtEmail.setText("");
+        txtCPF.setText("");
+        txtTel.setText("");
+    }
 }
